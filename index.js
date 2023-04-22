@@ -1,69 +1,63 @@
-const refs = {
-  startBtn: document.querySelector("[data-start]"),
-  dateInput: document.querySelector("#datetime-picker"),
-  daysEl: document.querySelector("[data-days]"),
-  hoursEl: document.querySelector("[data-hours]"),
-  minsEl: document.querySelector("[data-minutes]"),
-  secondsEl: document.querySelector("[data-seconds]"),
-};
-const { startBtn, dateInput, daysEl, hoursEl, minsEl, secondsEl } = refs;
-
-let intervalId = null;
-let selectedTime = Date.now();
-
-startBtn.addEventListener("click", runTimer);
-
-const options = {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 1,
-  onClose(selectedDates) {
-    if (selectedDates[0].getTime() < Date.now()) {
-      startBtn.disabled = true;
-      return;
-    }
-    selectedTime = selectedDates[0].getTime();
-    startBtn.disabled = false;
-  },
-};
-flatpickr(dateInput, options);
-
-function runTimer() {
-  startBtn.disabled = true;
-  intervalId = setInterval(() => {
-    let timerTime = selectedTime - Date.now();
-    if (timerTime <= 0) {
-      clearInterval(intervalId);
-      startBtn.disabled = false;
-      return;
-    }
-    showDate(timerTime);
-  }, 1000);
+// Завантаження списку користувачів з використанням API
+function loadUsers() {
+  fetch('https://gorest.co.in/public-api/users')
+    .then(response => response.json())
+    .then(data => {
+      // Відображення списку користувачів на головній сторінці
+      const userList = document.getElementById('userList');
+      data.data.forEach(user => {
+        const userElement = document.createElement('li');
+        userElement.innerHTML = `<a href="#" onclick="loadUserPosts(${user.id})">${user.name}</a>`;
+        userList.appendChild(userElement);
+      });
+    })
+    .catch(error => console.error('Помилка при завантаженні списку користувачів:', error));
 }
 
-function showDate(timerTime) {
-  const { days, hours, minutes, seconds } = convertMs(timerTime);
-
-  daysEl.textContent = addLeadingZero(days);
-  hoursEl.textContent = addLeadingZero(hours);
-  minsEl.textContent = addLeadingZero(minutes);
-  secondsEl.textContent = addLeadingZero(seconds);
+// Завантаження списку постів користувача з використанням API
+function loadUserPosts(userId) {
+  fetch(`https://gorest.co.in/public-api/users/${userId}/posts`)
+    .then(response => response.json())
+    .then(data => {
+      // Відображення списку постів користувача на сторінці постів
+      const postList = document.getElementById('postList');
+      postList.innerHTML = '';
+      data.data.forEach(post => {
+        const postElement = document.createElement('li');
+        postElement.innerHTML = `<a href="#" onclick="loadPostDetails(${post.id})">${post.title}</a>`;
+        postList.appendChild(postElement);
+      });
+    })
+    .catch(error => console.error(`Помилка при завантаженні списку постів користувача ${userId}:`, error));
 }
 
-function addLeadingZero(value) {
-  return String(value).padStart(2, 0);
+// Завантаження деталей окремого поста з використанням API
+function loadPostDetails(postId) {
+  fetch(`https://gorest.co.in/public-api/posts/${postId}`)
+    .then(response => response.json())
+    .then(data => {
+      // Відображення деталей окремого поста на сторінці деталей поста
+      const postDetails = document.getElementById('postDetails');
+      postDetails.innerHTML = `
+        <h2>${data.data.title}</h2>
+        <p>${data.data.body}</p>
+      `;
+      loadComments(postId);
+    })
+    .catch(error => console.error(`Помилка при завантаженні деталей поста ${postId}:`, error));
 }
-function convertMs(ms) {
-  const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
 
-  const days = Math.floor(ms / day);
-  const hours = Math.floor((ms % day) / hour);
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
-  return { days, hours, minutes, seconds };
-}
+// Завантаження коментарів до окремого поста з використанням API
+function loadComments(postId) {
+  fetch(`https://gorest.co.in/public-api/comments?post_id=${postId}`)
+    .then(response => response.json())
+    .then(data => {
+      // Відображення коментарів до поста на сторінці деталей поста
+      const commentsList = document.getElementById('commentsList');
+      commentsList.innerHTML = '';
+      data.data.forEach(comment => {
+        const commentElement = document.createElement('li');
+        commentElement.innerHTML = `
+          <strong>${comment.name}</strong>
+      })
+    })
