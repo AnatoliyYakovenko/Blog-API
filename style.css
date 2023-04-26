@@ -11,47 +11,25 @@ body {
   color: #212121;
   line-height: 1.5;
 }
-
-img {
-  display: block;
-  max-width: 100%;
-}
-#datetime-picker {
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 8px;
-}
-button[data-start] {
-  font-size: 20px;
-  font-weight: 600;
-  color: #fafafa;
-  padding: 12px;
-  background-color: rgb(219, 129, 11);
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-button[data-start]:hover {
-  transform: scale(0.9);
-  cursor: pointer;
+.title {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.timer {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
+.list-group-item:hover {
+  cursor: pointer;
+  background-color: rgb(209, 227, 246);
 }
-.field {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  background-color: rgb(205, 208, 208);
-  border-radius: 8px;
+.alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
 }
-.value {
-  font-size: 50px;
-  font-weight: 700;
+.alert-error {
+  background-color: rgb(246, 171, 171);
+}
+.alert-success {
+  background-color: rgb(225, 238, 154);
 }

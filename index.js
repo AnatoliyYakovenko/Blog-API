@@ -1,63 +1,46 @@
-// Завантаження списку користувачів з використанням API
-function loadUsers() {
-  fetch('https://gorest.co.in/public-api/users')
-    .then(response => response.json())
-    .then(data => {
-      // Відображення списку користувачів на головній сторінці
-      const userList = document.getElementById('userList');
-      data.data.forEach(user => {
-        const userElement = document.createElement('li');
-        userElement.innerHTML = `<a href="#" onclick="loadUserPosts(${user.id})">${user.name}</a>`;
-        userList.appendChild(userElement);
-      });
-    })
-    .catch(error => console.error('Помилка при завантаженні списку користувачів:', error));
+const linkListEl = document.querySelector(".list-group");
+const containerEl = document.querySelector(".container");
+const baseUrl = "https://gorest.co.in/public/v2/users";
+
+function createLink(user) {
+  const link = document.createElement("a");
+  link.classList.add("list-group-item");
+  link.innerText = user.name;
+
+  return link;
+}
+function createMessage(message, type) {
+  const cl = `alert-${type}`;
+  const errorMessageBox = document.createElement("div");
+  errorMessageBox.classList.add("alert", cl);
+  errorMessageBox.innerText = message;
+  return errorMessageBox;
 }
 
-// Завантаження списку постів користувача з використанням API
-function loadUserPosts(userId) {
-  fetch(`https://gorest.co.in/public-api/users/${userId}/posts`)
-    .then(response => response.json())
-    .then(data => {
-      // Відображення списку постів користувача на сторінці постів
-      const postList = document.getElementById('postList');
-      postList.innerHTML = '';
-      data.data.forEach(post => {
-        const postElement = document.createElement('li');
-        postElement.innerHTML = `<a href="#" onclick="loadPostDetails(${post.id})">${post.title}</a>`;
-        postList.appendChild(postElement);
-      });
-    })
-    .catch(error => console.error(`Помилка при завантаженні списку постів користувача ${userId}:`, error));
-}
+async function fetchUsers() {
+  try {
+    const res = await fetch(baseUrl);
+    if (!res.ok) {
+      throw new Error("Не вдалось завантажити інформацію. Спробуйте пізніше!");
+      // throw new Error("Користувачі не знайдені!");
+    }
+    const data = await res.json();
+    // const data = [];
+    if (!data.length) {
+      const errorMessageBox = createMessage(
+        "Користувачі не знайдені",
+        "success"
+      );
+      containerEl.appendChild(errorMessageBox);
+    }
 
-// Завантаження деталей окремого поста з використанням API
-function loadPostDetails(postId) {
-  fetch(`https://gorest.co.in/public-api/posts/${postId}`)
-    .then(response => response.json())
-    .then(data => {
-      // Відображення деталей окремого поста на сторінці деталей поста
-      const postDetails = document.getElementById('postDetails');
-      postDetails.innerHTML = `
-        <h2>${data.data.title}</h2>
-        <p>${data.data.body}</p>
-      `;
-      loadComments(postId);
-    })
-    .catch(error => console.error(`Помилка при завантаженні деталей поста ${postId}:`, error));
+    data.map((user) => {
+      const link = createLink(user);
+      linkListEl.appendChild(link);
+    });
+  } catch (error) {
+    const errorMessageBox = createMessage(error.message, "error");
+    containerEl.appendChild(errorMessageBox);
+  }
 }
-
-// Завантаження коментарів до окремого поста з використанням API
-function loadComments(postId) {
-  fetch(`https://gorest.co.in/public-api/comments?post_id=${postId}`)
-    .then(response => response.json())
-    .then(data => {
-      // Відображення коментарів до поста на сторінці деталей поста
-      const commentsList = document.getElementById('commentsList');
-      commentsList.innerHTML = '';
-      data.data.forEach(comment => {
-        const commentElement = document.createElement('li');
-        commentElement.innerHTML = `
-          <strong>${comment.name}</strong>
-      })
-    })
+fetchUsers();
