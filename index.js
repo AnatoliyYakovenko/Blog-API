@@ -5,6 +5,7 @@ const baseUrl = "https://gorest.co.in/public/v2/users?page=1&per_page=20";
 function createLink(user) {
   const link = document.createElement("a");
   link.classList.add("list-group-item");
+  link.href = `post.html?${user.user_id}`;
   link.innerText = user.name;
 
   return link;

@@ -1,13 +1,24 @@
-const linkListEl = document.querySelector(".list-group");
+const linkListEl = document.querySelector(".post-container");
 
 baseUrl = "https://gorest.co.in/public/v2/posts?page=1&per_page=20";
 
-function createLink(post) {
-  const link = document.createElement("a");
-  link.classList.add("list-group-item");
-  link.innerText = post.title;
+function createPost(post) {
+  const postCard = document.createElement("li");
+  postCard.classList.add("post-item");
 
-  return link;
+  const postLink = document.createElement("a");
+  postLink.classList.add("post-link");
+  postLink.href = `comments.html`;
+  postLink.innerText = post.title;
+
+  const shortPost = document.createElement("p");
+  shortPost.classList.add("post-body");
+  shortPost.innerText = post.body.substring(0, 30).concat("...");
+
+  postCard.appendChild(postLink);
+  postCard.appendChild(shortPost);
+
+  return postCard;
 }
 async function fetchPost() {
   try {
@@ -18,7 +29,7 @@ async function fetchPost() {
     //     }
     const data = await res.json();
     data.map((post) => {
-      const link = createLink(post);
+      const link = createPost(post);
       linkListEl.appendChild(link);
     });
     //     // const data = [];
