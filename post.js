@@ -49,6 +49,7 @@ async function fetchPost() {
     // const errorMessageBox = createMessage(error.message, "error");
     // containerEl.appendChild(errorMessageBox);
     console.error(error);
+    asd;
   }
 }
 fetchPost();
