@@ -1,55 +1,64 @@
+const containerEl = document.querySelector(".container");
 const linkListEl = document.querySelector(".post-container");
+const goBackBtn = document.querySelector(".btn");
 
-baseUrl = "https://gorest.co.in/public/v2/posts?page=1&per_page=20";
+baseUrl = "https://gorest.co.in/public/v2/users";
+baseUrlCom = "https://gorest.co.in/public/v2/posts";
 
-function createPost(post) {
-  const postCard = document.createElement("li");
-  postCard.classList.add("post-item");
+goBackBtn.addEventListener("click", () => {
+  window.location.href = "/posts.html";
+});
 
-  const postLink = document.createElement("a");
-  postLink.classList.add("post-link");
-  postLink.href = `comments.html`;
-  postLink.innerText = post.title;
+// function getUserId() {
+//   const params = new URL(document.location).searchParams;
+//   return params.get("id");
+// }
+// function createMessage(message, type) {
+//   const cl = `alert-${type}`;
+//   const errorMessageBox = document.createElement("div");
+//   errorMessageBox.classList.add("alert", cl);
+//   errorMessageBox.innerText = message;
+//   return errorMessageBox;
+// }
 
-  const shortPost = document.createElement("p");
-  shortPost.classList.add("post-body");
-  shortPost.innerText = post.body.substring(0, 30).concat("...");
+// function createPost(post) {
+//   const post = document.createElement("li");
+//   post.classList.add("post-item");
 
-  postCard.appendChild(postLink);
-  postCard.appendChild(shortPost);
+//   const postTitle = document.createElement("h5");
+//   postTitle.classList.add("post-title");
+//   postTitle.innerText = post.title;
 
-  return postCard;
+//   const postBody = document.createElement("p");
+//   postBody.classList.add("post-body");
+//   postBody.innerText = post.body;
+
+//   post.appendChild(postTitle);
+//   post.appendChild(postBody);
+
+//   return post;
+// }
+// async function getOnePostById() {
+//   const id = getUserId();
+//   const res = await fetch(`${baseUrl}/${id}/posts`);
+//   const post = await res.json();
+
+//   //   posts.map((post) => {
+//   //     const link = createPost(post);
+//   //     linkListEl.appendChild(link);
+//   //   });
+// }
+async function getCommentsById() {
+  const id = getUserId();
+  const res = await fetch(`${baseUrlCom}/${id}/comments`);
+  const comments = await res.json();
+
+  console.log(comments);
+
+  //   comments.map((post) => {
+  //     const link = createPost(post);
+  //     containerEl.appendChild(link);
+  //   });
 }
-async function fetchPost() {
-  try {
-    const res = await fetch(baseUrl);
-    //     if (!res.ok) {
-    //       throw new Error("Не вдалось завантажити інформацію. Спробуйте пізніше!");
-    //       // throw new Error("Користувачі не знайдені!");
-    //     }
-    const data = await res.json();
-    data.map((post) => {
-      const link = createPost(post);
-      linkListEl.appendChild(link);
-    });
-    //     // const data = [];
-    //     if (!data.length) {
-    //       const errorMessageBox = createMessage(
-    //         "Користувачі не знайдені",
-    //         "success"
-    //       );
-    //       containerEl.appendChild(errorMessageBox);
-    //     }
 
-    //     data.map((user) => {
-    //       const link = createLink(user);
-    //       linkListEl.appendChild(link);
-    //     });
-  } catch (error) {
-    // const errorMessageBox = createMessage(error.message, "error");
-    // containerEl.appendChild(errorMessageBox);
-    console.error(error);
-    asd;
-  }
-}
-fetchPost();
+getCommentsById();
