@@ -1,5 +1,5 @@
 const containerEl = document.querySelector(".container");
-const linkListEl = document.querySelector(".post-container");
+const commentsListEl = document.querySelector(".comments-list");
 const goBackBtn = document.querySelector(".btn");
 
 baseUrl = "https://gorest.co.in/public/v2/users";
@@ -9,35 +9,35 @@ goBackBtn.addEventListener("click", () => {
   window.location.href = "/posts.html";
 });
 
-// function getUserId() {
-//   const params = new URL(document.location).searchParams;
-//   return params.get("id");
-// }
-// function createMessage(message, type) {
-//   const cl = `alert-${type}`;
-//   const errorMessageBox = document.createElement("div");
-//   errorMessageBox.classList.add("alert", cl);
-//   errorMessageBox.innerText = message;
-//   return errorMessageBox;
-// }
+function getUserId() {
+  const params = new URL(document.location).searchParams;
+  return params.get("id");
+}
 
-// function createPost(post) {
-//   const post = document.createElement("li");
-//   post.classList.add("post-item");
+function createMessage(message, type) {
+  const cl = `alert-${type}`;
+  const errorMessageBox = document.createElement("div");
+  errorMessageBox.classList.add("alert", cl);
+  errorMessageBox.innerText = message;
+  return errorMessageBox;
+}
 
-//   const postTitle = document.createElement("h5");
-//   postTitle.classList.add("post-title");
-//   postTitle.innerText = post.title;
+function createComments(comment) {
+  const commentCard = document.createElement("li");
+  commentCard.classList.add("comment-item");
 
-//   const postBody = document.createElement("p");
-//   postBody.classList.add("post-body");
-//   postBody.innerText = post.body;
+  const userComment = document.createElement("h5");
+  userComment.classList.add("comment-user");
+  userComment.innerText = comment.name;
 
-//   post.appendChild(postTitle);
-//   post.appendChild(postBody);
+  const commentBody = document.createElement("p");
+  commentBody.classList.add("comment-body");
+  commentBody.innerText = comment.body;
 
-//   return post;
-// }
+  commentCard.appendChild(userComment);
+  commentCard.appendChild(commentBody);
+  return commentCard;
+}
 // async function getOnePostById() {
 //   const id = getUserId();
 //   const res = await fetch(`${baseUrl}/${id}/posts`);
@@ -52,13 +52,17 @@ async function getCommentsById() {
   const id = getUserId();
   const res = await fetch(`${baseUrlCom}/${id}/comments`);
   const comments = await res.json();
+  if (!comments.length) {
+    const errorMessageBox = createMessage("Коментарі відсутні", "success");
+    commentsListEl.appendChild(errorMessageBox);
+  }
 
-  console.log(comments);
+  //   console.log(comments);
 
-  //   comments.map((post) => {
-  //     const link = createPost(post);
-  //     containerEl.appendChild(link);
-  //   });
+  comments.map((comment) => {
+    const commentCard = createComments(comment);
+    commentsListEl.appendChild(commentCard);
+  });
 }
 
 getCommentsById();
