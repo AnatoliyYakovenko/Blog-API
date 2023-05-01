@@ -1,6 +1,6 @@
 const linkListEl = document.querySelector(".list-group");
 const containerEl = document.querySelector(".container");
-const baseUrl = "https://gorest.co.in/public/v2/users";
+const baseUrl = "https://gorest.co.in/public/v2/users?page=1&per_page=100 ";
 
 function createLink(user) {
   const link = document.createElement("a");

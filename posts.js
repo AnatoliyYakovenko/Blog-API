@@ -31,7 +31,7 @@ function createPost(post) {
 
   const shortPost = document.createElement("p");
   shortPost.classList.add("post-body");
-  shortPost.innerText = post.body.substring(0, 30).concat("...");
+  shortPost.innerText = post.body.substring(0, 50).concat("...");
 
   postCard.appendChild(postLink);
   postCard.appendChild(shortPost);
