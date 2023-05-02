@@ -62,6 +62,7 @@ async function getOnePostById() {
   const res = await fetch(`${baseUrlCom}/${id}`);
   const post = await res.json();
 
+
   const postInfo = createPost(post);
 
   postContainer.appendChild(postInfo);

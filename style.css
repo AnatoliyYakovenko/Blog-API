@@ -34,6 +34,11 @@ ul {
 li {
   list-style: none;
 }
+.container {
+  margin-top: 20px;
+  border: 2px solid rgb(198, 196, 196);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 .title {
   text-align: center;
   margin-bottom: 20px;
@@ -68,6 +73,58 @@ li {
 .post-body {
   margin-bottom: 5px;
 }
+.post-container {
+  border-bottom: 1px solid rgb(169, 167, 167);
+}
+.onePost-title {
+  margin-bottom: 10px;
+}
+.onePost-body {
+  margin-bottom: 10px;
+}
+.comments-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.comment-user {
+  margin-bottom: 5px;
+}
 .btn {
   margin: 15px auto;
 }
+
+/* @-webkit-keyframes gyro {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg) translateY(calc(var(--radius) * 1%));
+            transform: scale(1) rotate(0deg) translateY(calc(var(--radius) * 1%)); }
+  50% {
+    -webkit-transform: scale(0.5) rotate(1440deg) translateY(0);
+            transform: scale(0.5) rotate(1440deg) translateY(0); }
+  100% {
+    -webkit-transform: scale(1) rotate(2920deg) translateY(calc(var(--radius) * 1%));
+            transform: scale(1) rotate(2920deg) translateY(calc(var(--radius) * 1%)); } }
+@keyframes gyro {
+  0% {
+    -webkit-transform: scale(1) rotate(0deg) translateY(calc(var(--radius) * 1%));
+            transform: scale(1) rotate(0deg) translateY(calc(var(--radius) * 1%)); }
+  50% {
+    -webkit-transform: scale(0.5) rotate(1440deg) translateY(0);
+            transform: scale(0.5) rotate(1440deg) translateY(0); }
+  100% {
+    -webkit-transform: scale(1) rotate(2920deg) translateY(calc(var(--radius) * 1%));
+            transform: scale(1) rotate(2920deg) translateY(calc(var(--radius) * 1%)); } }
+
+.gyro:after, .gyro:before {
+  --radius: 250;
+  -webkit-animation: gyro 2s infinite linear;
+          animation: gyro 2s infinite linear;
+  background: var(--primary);
+  border-radius: 100%;
+  content: '';
+  height: 20px;
+  width: 20px;
+  position: absolute; }
+
+.gyro:before {
+  --radius: -250;
+  background: var(--secondary); } */
