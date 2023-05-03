@@ -8,7 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
-  color: #212121;
+  color: #232323;
   line-height: 1.5;
 }
 h1,
@@ -35,8 +35,9 @@ li {
   list-style: none;
 }
 .container {
+  padding: 10px 20px;
   margin-top: 20px;
-  border: 2px solid rgb(198, 196, 196);
+  background-color: rgb(215, 241, 238);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .title {
@@ -50,11 +51,6 @@ li {
 }
 .alert {
   margin: 15px 0px;
-
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
-  /* transform: translate(-50%, -50%); */
   width: fit-content;
 }
 .alert-error {
@@ -63,7 +59,7 @@ li {
 .alert-success {
   background-color: rgb(225, 238, 154);
 }
-.post-item {
+.post-item:not(:last-child) {
   margin-bottom: 15px;
   border-bottom: 1px solid rgb(170, 169, 169);
 }
