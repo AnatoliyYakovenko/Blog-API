@@ -35,7 +35,7 @@ li {
   list-style: none;
 }
 .container {
-  padding: 10px 20px;
+  padding: 20px 20px;
   margin-top: 20px;
   background-color: rgb(215, 241, 238);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -85,10 +85,11 @@ li {
 .comment-user {
   margin-bottom: 5px;
 }
-.comment-item:not(:last-child) {
+.comment-item {
   margin-bottom: 10px;
 }
 .btn {
+  padding: 10px;
   font-size: 24px;
+  border: 1px solid #007bff;
 }
-

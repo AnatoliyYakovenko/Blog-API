@@ -26,6 +26,9 @@ async function getPostsById() {
     const frame = createPost(el);
     postsListEl.appendChild(frame);
   });
+  if (!data.length) {
+    containerEl.appendChild(createGoBackLink());
+  }
 }
 
 getPostsById();

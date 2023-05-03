@@ -50,7 +50,7 @@ async function getCommentsById() {
     const frame = createComments(el);
     commentsListEl.appendChild(frame);
   });
- 
+  containerEl.appendChild(createGoBackLink());
 }
 getOnePostById();
 getCommentsById();

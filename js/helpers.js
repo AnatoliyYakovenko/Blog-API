@@ -9,3 +9,10 @@ function getIdFromUrl() {
   const params = new URL(document.location).searchParams;
   return params.get("id");
 }
+function createGoBackLink(){
+  const goBack = document.createElement("a");
+      goBack.classList.add("btn");
+      goBack.href = "javascript:history.back()";
+      goBack.innerText = "\u2B05 Назад";
+      return goBack;
+}
