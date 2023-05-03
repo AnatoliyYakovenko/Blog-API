@@ -1,4 +1,4 @@
-const id = getUserId();
+const id = getIdFromUrl();
 const baseUrlPosts = `https://gorest.co.in/public/v2/users/${id}/posts`;
 
 function createPost(post) {

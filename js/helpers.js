@@ -5,7 +5,7 @@ function createMessage(message, type) {
   errorMessageBox.innerText = message;
   return errorMessageBox;
 }
-function getUserId() {
+function getIdFromUrl() {
   const params = new URL(document.location).searchParams;
   return params.get("id");
 }
